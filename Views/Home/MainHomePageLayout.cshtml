@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MainHomePage</title>
+    <link href="~/Content/CSS/mainhomepage.css" rel="stylesheet" />
+   <script type="text/javascript">
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
+
+    </script>
+</head>
+<body>
+<header>
+        <nav>
+
+            <div>
+                 <!-- Add the Snapdeal text here -->
+
+                <ul>
+                    <img  style="float:left;width:50px;height:50px;padding-left:10px;"  src="~/Content/Images/Screenshot 2023-08-04 173731.png" />
+                    <li style="float: left; padding: 14px 14px;font-size:20px; color:white">Snapdeal</li>
+                    <li>@Html.ActionLink("Contact us", "Contactus", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sign In", "Signin", "Signin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About us", "Aboutus", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sign Up", "AddDetail", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+        </nav>
+ </header>
+    @RenderBody()
+    @section Scripts {
+        <script src="~/Scripts/Javascript/FormValidation.js"></script>
+    }
+</div>
+        <div>
+            <footer class="footer">
+                <p>&copy; Online shopping platform</p>
+            </footer>
+        </div>
+       
+</body>
+</html>

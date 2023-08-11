@@ -1,0 +1,126 @@
+﻿@model IEnumerable<OnlineShopping.Models.CartItem>
+
+@{
+    ViewBag.Title = "CartItems";
+    Layout = "~/Views/User/UserLayoutPage.cshtml";
+}
+<html>
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      function makeOrder(productID)
+      {
+        console.log("Adding product with ID: " + productID);
+
+        $.ajax({
+        url: '@Url.Action("ConfirmedOrder", "Product")', // Make sure the URL is correct
+        type: 'POST',
+        data: { productID: productID }, // Adjust the parameter name if needed
+         success: function (response) {
+        console.log("AJAX success response:", response);
+        if (response.success) {
+            $('#cart-item-count').text(response.cartItemCount); // Updated property name
+        }
+       },
+        error: function (xhr, status, error) {
+        console.error(error);
+        }
+        });
+      }
+   </script>
+</head>
+<body>
+    <h2>CartItems</h2>
+
+    <p>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stockQuantity)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @if (item.image != null && item.image.Length > 0)
+                    {
+                        <img style="float:revert;width:300px;height:300px;padding-left:10px;" src="data:image/jpeg;base64,@Convert.ToBase64String(item.image)" alt="Product Image" />
+
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stockQuantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveFromCart", "Product", new { id = item.productID }, null)
+                </td>
+                <td>
+                    <button style="float:right" class="addtocart" onclick="makeOrder('@item.productID')">Make Order</button>
+                </td>
+            </tr>
+        }
+            <tr>
+                <td colspan="2"></td>
+                <td><strong>Total Price:</strong></td>
+                <td><strong>@Model.Sum(item => item.Price * item.stockQuantity)</strong></td>
+                <td>
+                </td>
+            </tr>
+        
+    </table>
+    @Html.ActionLink("back", "GetProductForUser", "Product")
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: lightpink;
+        }
+
+        .button {
+            background-color: #e40046;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>

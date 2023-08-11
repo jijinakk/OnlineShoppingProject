@@ -1,0 +1,71 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminLayout</title>
+    <link href="~/Content/CSS/adminhomepage.css" rel="stylesheet" />
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+
+    </script>
+</head>
+
+<body>
+<header>
+        <nav class="">
+
+            <ul>
+                <img style="float:left;width:50px;height:50px;padding-left:10px;" src="~/Content/Images/Screenshot 2023-08-04 173731.png" />
+
+                <li>@Html.ActionLink("Logout", "", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+            </ul>
+        </nav>
+    </header>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Profile</a>
+    @Html.ActionLink("Add Product", "AddProduct", "Product", new { area = "" }, new { @class = "nav-link" })
+    @Html.ActionLink("User Details", "GetDetails", "Home", new { area = "" }, new { @class = "nav-link" })
+    @Html.ActionLink("Seller Details", "GetSellerDetails", "Home", new { area = "" }, new { @class = "nav-link" })
+
+    <a href="#">Orders</a>
+    <a href="#">Payments</a>
+    @Html.ActionLink("Feedback", "GetContactus", "Admin", new { area = "" }, new { @class = "nav-link" })
+</div>
+
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <div class="container body-content">
+        @RenderBody()
+        <div>
+
+            <footer class="footer">
+                <p>&copy; Online shopping platform</p>
+            </footer>
+        </div>
+    </div>
+    <style>
+        
+    </style>
+</body>
+</html>
